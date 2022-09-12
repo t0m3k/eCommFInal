@@ -8,14 +8,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
 public class Hooks {
-    public static WebDriver driver;
+    private WebDriver driver;
+    private final SharedDictionary dict;
     private WebDriverManager wdm;
+
+    public Hooks(SharedDictionary dict) {
+        this.dict = dict;
+    }
 
     @Before
     public void setUp() {
@@ -42,11 +48,14 @@ public class Hooks {
                 break;
         }
 
+        dict.setDriver(driver);
+        dict.setWait(new WebDriverWait(driver, Duration.ofSeconds(6)));
+
     }
 
     @After
     public void tearDown() throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(6000);
         driver.quit();
     }
 }
