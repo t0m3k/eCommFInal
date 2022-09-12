@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class ShopSteps {
     private final SharedDictionary dict;
-    private PageNavigation page;
+    private final PageNavigation page;
 
     public ShopSteps(SharedDictionary dict) {
         this.dict = dict;
@@ -45,16 +45,19 @@ public class ShopSteps {
         cart.applyCoupon();
     }
 
-    @Then("I get {int}% discount")
-    public void i_get_discount(Integer int1) {
+    @Then("I get {double}% discount")
+    public void i_get_discount(Double discValue) {
         CartPage cart = (CartPage) dict.readDict("cart");
         var discount = cart.getDiscount();
         var subTotal = cart.getSubTotal();
         var delivery = cart.getDelivery();
         var total= cart.getTotal();
 
-        MatcherAssert.assertThat("Discount equals 15% of subtotal", (int)Math.round(subTotal * 0.15), is(discount));
+        MatcherAssert.assertThat("Discount equals 15% of subtotal", (int)Math.round(subTotal * discValue)/100, is(discount));
         MatcherAssert.assertThat("Total equals subtotal - discount + delivery", total, is(subTotal - discount + delivery));
+
+        page.logout();
+
     }
 
     @When("I go to checkout")
@@ -88,6 +91,9 @@ public class ShopSteps {
         OrdersPage ordersPage = new OrdersPage(dict);
         String order = (String)dict.readDict("orderId");
         MatcherAssert.assertThat(ordersPage.getOrderId(), is(order));
+
+        page.logout();
+
     }
 
     @And("I go to cart")

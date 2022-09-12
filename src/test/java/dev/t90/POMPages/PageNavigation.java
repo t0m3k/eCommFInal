@@ -4,17 +4,12 @@ import dev.t90.utils.SharedDictionary;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
-
 public class PageNavigation {
-    private final SharedDictionary dict;
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public PageNavigation(SharedDictionary dict) {
-        this.dict = dict;
         this.driver = dict.getDriver();
         PageFactory.initElements(driver, this);
 
@@ -30,6 +25,9 @@ public class PageNavigation {
 
     @FindBy(linkText = "Orders")
     private WebElement ordersLink;
+
+    @FindBy(linkText = "Logout")
+    private WebElement logoutLink;
 
 
     public void goHome() {
@@ -53,4 +51,8 @@ public class PageNavigation {
         ordersLink.click();
     }
 
+    public void logout() {
+        goAccount();
+        logoutLink.click();
+    }
 }

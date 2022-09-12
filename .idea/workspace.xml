@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb76d72-4c73-4ac8-af76-7e6d72ba93b5" name="Changes" comment="Add Hooks file">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/CartPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/CheckoutPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/LoginPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/OrdersPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/PageNavigation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/ShopPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/tests/ShopSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dev/t90/utils/SharedDictionary.java" afterDir="false" />
+    <list default="true" id="0cb76d72-4c73-4ac8-af76-7e6d72ba93b5" name="Changes" comment="Logout at the end of the tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MyStepdefs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/PageNavigation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/t90/POMPages/PageNavigation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dev/t90/tests/ShopSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/t90/tests/ShopSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dev/t90/utils/Hooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/t90/utils/Hooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/dev/t90/Discount.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/dev/t90/Shop.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +60,26 @@
       <recent name="dev.t90.POMPages" />
     </key>
   </component>
-  <component name="RunManager" selected="Cucumber Java.Scenario: Making order creates entry in My Orders section">
+  <component name="RunManager" selected="Cucumber Java.Scenario: Using promo code gives me 15% discount">
+    <configuration name="Feature: Shop" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/dev/t90/Shop.feature" />
+      <option name="GLUE" value="dev.t90.utils dev.t90.tests" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="eCommFinal" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
+      <option name="SUGGESTED_NAME" value="Feature: Shop" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Scenario: Making order creates entry in My Orders section" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/dev/t90/Shop.feature" />
@@ -113,8 +122,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cucumber Java.Scenario: Making order creates entry in My Orders section" />
         <item itemvalue="Cucumber Java.Scenario: Using promo code gives me 15% discount" />
+        <item itemvalue="Cucumber Java.Feature: Shop" />
+        <item itemvalue="Cucumber Java.Scenario: Making order creates entry in My Orders section" />
       </list>
     </recent_temporary>
   </component>
@@ -143,7 +153,21 @@
       <option name="project" value="LOCAL" />
       <updated>1662974502347</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Final">
+      <created>1662996791884</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1662996791884</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Wait for discount to calculate">
+      <created>1662998969402</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1662998969402</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,7 +186,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add Hooks file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Hooks file" />
+    <MESSAGE value="Final" />
+    <MESSAGE value="Wait for discount to calculate" />
+    <MESSAGE value="Logout at the end of the tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logout at the end of the tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
