@@ -5,21 +5,42 @@ import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 public class Hooks {
     public static WebDriver driver;
+    private WebDriverManager wdm;
 
     @Before
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
 
-//        WebDriverManager.firefoxdriver().setup();
-//        driver = new FirefoxDriver();
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        String browser = System.getProperty("browser");
+        System.out.println("Browser set to: " + browser);
+        if (browser == null) {
+            browser = "";
+        }
+        switch (browser) {
+            case "firefox":
+                driver = WebDriverManager.firefoxdriver().create();
+                break;
+            case "chrome":
+                driver = WebDriverManager.chromedriver().create();
+                break;
+            case "safari":
+                wdm = WebDriverManager.safaridriver().browserInDocker();
+                driver = wdm.create();
+                break;
+            default:
+                System.out.println("Browser not set at command line so using ChromeDriver");
+                driver = WebDriverManager.chromedriver().create();
+                break;
+        }
 
     }
 
