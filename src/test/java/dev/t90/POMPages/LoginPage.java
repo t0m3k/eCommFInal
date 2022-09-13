@@ -8,8 +8,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
+    private final Helpers helpers;
 
     public LoginPage(Helpers helpers) {
+        this.helpers = helpers;
         WebDriver driver = helpers.getDriver();
         PageFactory.initElements(driver, this);
 
@@ -43,7 +45,7 @@ public class LoginPage {
         passwordField.sendKeys(password);
     }
 
-    public void submitForm() { loginField.click(); }
+    public void submitForm() { helpers.click(loginField, 200); }
 
     public void login(String username, String password) {
         setUsername(username);

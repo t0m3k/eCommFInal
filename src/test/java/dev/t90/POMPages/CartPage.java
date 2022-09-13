@@ -9,12 +9,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CartPage {
-    private final Helpers dict;
+    private final Helpers helpers;
     private final WebDriver driver;
 
-    public CartPage(Helpers dict) {
-        this.dict = dict;
-        this.driver = dict.getDriver();
+    public CartPage(Helpers helpers) {
+        this.helpers = helpers;
+        this.driver = helpers.getDriver();
         PageFactory.initElements(driver, this);
 
     }
@@ -47,7 +47,7 @@ public class CartPage {
     }
 
     public void applyCoupon() {
-        applyCouponField.click();
+        helpers.click(applyCouponField, 200);
     }
 
     public int getSubTotal() {
@@ -55,7 +55,7 @@ public class CartPage {
     }
 
     public int getDiscount() {
-        dict.getWait().until(drv -> {
+        helpers.getWait().until(drv -> {
                     drv.findElement(By.xpath(discountElement));
                     return true;
                 }
@@ -74,7 +74,7 @@ public class CartPage {
 
     public boolean goCheckout() {
 
-        dict.scroll(checkoutLink, 200);
+        helpers.scroll(checkoutLink, 200);
         try {
             checkoutLink.click();
         } catch (NoSuchElementException e) {
