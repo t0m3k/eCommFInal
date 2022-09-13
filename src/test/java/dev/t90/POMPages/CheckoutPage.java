@@ -74,6 +74,17 @@ public class CheckoutPage {
                 });
     }
 
+    public void placeOrder(String firstName, String lastName, String street, String city, String postcode, String phone, String email) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setStreet(street);
+        setCity(city);
+        setPostcode(postcode);
+        setPhone(phone);
+        setEmail(email);
+        placeOrder();
+    }
+
     public String getOrderId() {
         var myWait = dict.getWait();
         myWait.until((drv) -> drv.findElement(By.cssSelector("li.woocommerce-order-overview__order.order > strong")));

@@ -70,15 +70,7 @@ public class ShopSteps {
     public void i_checkout() {
         CheckoutPage checkout = new CheckoutPage(dict);
 
-        checkout.setFirstName("Harry");
-        checkout.setLastName("Potter");
-        checkout.setStreet("4 Privet Drive");
-        checkout.setCity("Surrey");
-        checkout.setPostcode("RG12 9FG");
-        checkout.setPhone("7777 777 777");
-        checkout.setEmail("hp@hogwart.co.uk");
-
-        checkout.placeOrder();
+        checkout.placeOrder("Harry","Potter","4 Privet Drive","Surrey","RG12 9FG","7777 777 777","hp@hogwart.co.uk");
 
         dict.addDict("orderId", checkout.getOrderId());
 
