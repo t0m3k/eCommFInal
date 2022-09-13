@@ -2,7 +2,6 @@ package dev.t90.tests;
 
 import dev.t90.POMPages.*;
 import dev.t90.utils.Helpers;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,6 +24,8 @@ public class ShopSteps {
         page.goHome();
 
         LoginPage login = new LoginPage(helpers);
+
+        // we don't have to dissmiss the banner as we are using custom helpres.click function which scrolls down to make element visible
         //login.dismissBanner();
         boolean didWeLogin = login.loginExpectSuccess(username, password);
         MatcherAssert.assertThat("Login successful", didWeLogin);
@@ -39,7 +40,8 @@ public class ShopSteps {
 
     @When("I use promo code {string}")
     public void i_use_promo_code(String coupon) {
-        CartPage cart = (CartPage) helpers.readDict("cart");
+        page.goCart();
+        CartPage cart = new CartPage(helpers);
 
         cart.setCoupon(coupon);
         cart.applyCoupon();
@@ -47,7 +49,8 @@ public class ShopSteps {
 
     @Then("I get {double}% discount")
     public void i_get_discount(Double discValue) {
-        CartPage cart = (CartPage) helpers.readDict("cart");
+        CartPage cart = new CartPage(helpers);
+
         var discount = cart.getDiscount();
         var subTotal = cart.getSubTotal();
         var delivery = cart.getDelivery();
@@ -62,12 +65,15 @@ public class ShopSteps {
 
     @When("I go to checkout")
     public void i_go_to_checkout() {
-        CartPage cart = (CartPage) helpers.readDict("cart");
+        page.goCart();
+        CartPage cart = new CartPage(helpers);
         MatcherAssert.assertThat("Successfully went to checkout from cart", cart.goCheckout());
     }
 
     @When("I checkout")
     public void i_checkout() {
+        i_go_to_checkout();
+
         CheckoutPage checkout = new CheckoutPage(helpers);
 
         checkout.placeOrder("Harry","Potter","4 Privet Drive","Surrey","RG12 9FG","7777 777 777","hp@hogwart.co.uk");
@@ -87,12 +93,5 @@ public class ShopSteps {
 
         page.logout();
 
-    }
-
-    @And("I go to cart")
-    public void iGoToCart() {
-        page.goCart();
-        CartPage cart = new CartPage(helpers);
-        helpers.addDict("cart", cart);
     }
 }
