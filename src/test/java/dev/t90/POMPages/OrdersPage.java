@@ -1,6 +1,6 @@
 package dev.t90.POMPages;
 
-import dev.t90.utils.SharedDictionary;
+import dev.t90.utils.Helpers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class OrdersPage {
 
-    public OrdersPage(SharedDictionary dict) {
-        WebDriver driver = dict.getDriver();
+    public OrdersPage(Helpers helpers) {
+        WebDriver driver = helpers.getDriver();
         PageFactory.initElements(driver, this);
     }
 

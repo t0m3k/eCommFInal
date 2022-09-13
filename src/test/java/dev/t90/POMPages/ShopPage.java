@@ -1,6 +1,6 @@
 package dev.t90.POMPages;
 
-import dev.t90.utils.SharedDictionary;
+import dev.t90.utils.Helpers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,11 +11,11 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class ShopPage {
-    private final SharedDictionary dict;
+    private final Helpers helpers;
 
-    public ShopPage(SharedDictionary dict) {
-        this.dict = dict;
-        WebDriver driver = dict.getDriver();
+    public ShopPage(Helpers helpers) {
+        this.helpers = helpers;
+        WebDriver driver = helpers.getDriver();
         PageFactory.initElements(driver, this);
     }
 
@@ -24,7 +24,7 @@ public class ShopPage {
 
     public void addToCartRnd() {
         var element = (int) Math.round(Math.random() * (addToCartElements.size() - 1));
-        addToCartElements.get(element).click();
-        dict.getWait().until(drv -> drv.findElement(By.linkText("View cart")));
+        helpers.click(addToCartElements.get(element), 200);
+        helpers.getWait().until(drv -> drv.findElement(By.linkText("View cart")));
     }
 }

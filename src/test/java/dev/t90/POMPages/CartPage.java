@@ -1,6 +1,6 @@
 package dev.t90.POMPages;
 
-import dev.t90.utils.SharedDictionary;
+import dev.t90.utils.Helpers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -9,12 +9,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CartPage {
-    private final SharedDictionary dict;
-    private WebDriver driver;
+    private final Helpers helpers;
+    private final WebDriver driver;
 
-    public CartPage(SharedDictionary dict) {
-        this.dict = dict;
-        this.driver = dict.getDriver();
+    public CartPage(Helpers helpers) {
+        this.helpers = helpers;
+        this.driver = helpers.getDriver();
         PageFactory.initElements(driver, this);
 
     }
@@ -33,7 +33,7 @@ public class CartPage {
     private WebElement subTotalElement;
 
 //    @FindBy(xpath = "//*[@id=\"post-5\"]/div/div/div[2]/div/table/tbody/tr[2]/td/span")
-    private String discountElement = "//*[@id=\"post-5\"]/div/div/div[2]/div/table/tbody/tr[2]/td/span";
+    private final String discountElement = "//*[@id=\"post-5\"]/div/div/div[2]/div/table/tbody/tr[2]/td/span";
 
     @FindBy(xpath = "//*[@id=\"shipping_method\"]/li/label/span/bdi")
     private WebElement deliveryElement;
@@ -47,7 +47,7 @@ public class CartPage {
     }
 
     public void applyCoupon() {
-        applyCouponField.click();
+        helpers.click(applyCouponField, 200);
     }
 
     public int getSubTotal() {
@@ -55,13 +55,11 @@ public class CartPage {
     }
 
     public int getDiscount() {
-
-        dict.getWait().until(drv -> {
+        helpers.getWait().until(drv -> {
                     drv.findElement(By.xpath(discountElement));
                     return true;
                 }
         );
-
         return getPrice(driver.findElement(By.xpath(discountElement)));
 
     }
@@ -75,6 +73,8 @@ public class CartPage {
     }
 
     public boolean goCheckout() {
+
+        helpers.scroll(checkoutLink, 200);
         try {
             checkoutLink.click();
         } catch (NoSuchElementException e) {

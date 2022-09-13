@@ -1,17 +1,17 @@
 package dev.t90.POMPages;
 
-import dev.t90.utils.SharedDictionary;
+import dev.t90.utils.Helpers;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CheckoutPage {
-    private final SharedDictionary dict;
+    private final Helpers helpers;
     private final WebDriver driver;
 
-    public CheckoutPage(SharedDictionary dict) {
-        this.dict = dict;
-        this.driver = dict.getDriver();
+    public CheckoutPage(Helpers helpers) {
+        this.helpers = helpers;
+        this.driver = helpers.getDriver();
         PageFactory.initElements(driver, this);
     }
 
@@ -65,7 +65,10 @@ public class CheckoutPage {
     }
 
     public void placeOrder() {
-        dict.getWait()
+        var element = driver.findElement(By.id("place_order"));
+        helpers.scroll(element, 200);
+
+        helpers.getWait()
                 .ignoring(StaleElementReferenceException.class)
                 .until(drv -> {
                     drv.findElement(By.id("place_order")).click();
@@ -85,7 +88,7 @@ public class CheckoutPage {
     }
 
     public String getOrderId() {
-        var myWait = dict.getWait();
+        var myWait = helpers.getWait();
         myWait.until((drv) -> drv.findElement(By.cssSelector("li.woocommerce-order-overview__order.order > strong")));
 
         return driver.findElement(By.cssSelector("li.woocommerce-order-overview__order.order > strong")).getText();

@@ -9,10 +9,10 @@ import java.time.Duration;
 
 public class Hooks {
     private WebDriver driver;
-    private final SharedDictionary dict;
+    private final Helpers helpers;
 
-    public Hooks(SharedDictionary dict) {
-        this.dict = dict;
+    public Hooks(Helpers helpers) {
+        this.helpers = helpers;
     }
 
     @Before
@@ -40,8 +40,8 @@ public class Hooks {
                 break;
         }
 
-        dict.setDriver(driver);
-        dict.setWait(new WebDriverWait(driver, Duration.ofSeconds(6)));
+        helpers.setDriver(driver);
+        helpers.setWait(new WebDriverWait(driver, Duration.ofSeconds(6)));
 
     }
 

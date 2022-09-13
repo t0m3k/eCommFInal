@@ -1,6 +1,6 @@
 package dev.t90.POMPages;
 
-import dev.t90.utils.SharedDictionary;
+import dev.t90.utils.Helpers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,9 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 
 public class PageNavigation {
     private final WebDriver driver;
+    private final Helpers helpers;
 
-    public PageNavigation(SharedDictionary dict) {
-        this.driver = dict.getDriver();
+    public PageNavigation(Helpers helpers) {
+        this.helpers = helpers;
+        this.driver = helpers.getDriver();
         PageFactory.initElements(driver, this);
     }
 
@@ -34,24 +36,24 @@ public class PageNavigation {
     }
 
     public void goShop() {
-        shopLink.click();
+        helpers.click(shopLink,0);
     }
 
     public void goCart() {
-        cartLink.click();
+        helpers.click(cartLink, 0);
     }
 
     public void goAccount() {
-        myAccountLink.click();
+        helpers.click(myAccountLink, 0);
     }
 
     public void goOrders() {
         goAccount();
-        ordersLink.click();
+        helpers.click(ordersLink, 0);
     }
 
     public void logout() {
         goAccount();
-        logoutLink.click();
+        helpers.click(logoutLink, 0);
     }
 }
