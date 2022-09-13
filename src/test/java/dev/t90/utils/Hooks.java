@@ -3,6 +3,7 @@ package dev.t90.utils;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -29,6 +30,10 @@ public class Hooks {
                 break;
             case "chrome":
                 driver = WebDriverManager.chromedriver().create();
+                break;
+            case "chromeMobile":
+                driver = WebDriverManager.chromedriver().create();
+                driver.manage().window().setSize(new Dimension(400,800));
                 break;
             case "safari":
                 WebDriverManager wdm = WebDriverManager.safaridriver().browserInDocker();

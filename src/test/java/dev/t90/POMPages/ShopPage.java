@@ -24,7 +24,7 @@ public class ShopPage {
 
     public void addToCartRnd() {
         var element = (int) Math.round(Math.random() * (addToCartElements.size() - 1));
-        helpers.click(addToCartElements.get(element), 200);
+        helpers.click(addToCartElements.get(element), 300);
         helpers.getWait().until(drv -> drv.findElement(By.linkText("View cart")));
     }
 }
