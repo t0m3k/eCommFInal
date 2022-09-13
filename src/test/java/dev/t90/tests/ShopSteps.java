@@ -76,6 +76,7 @@ public class ShopSteps {
         checkout.setCity("Surrey");
         checkout.setPostcode("RG12 9FG");
         checkout.setPhone("7777 777 777");
+        checkout.setEmail("hp@hogwart.co.uk");
 
         checkout.placeOrder();
 
