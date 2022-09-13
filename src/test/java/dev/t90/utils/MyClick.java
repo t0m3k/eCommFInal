@@ -14,14 +14,27 @@ public class MyClick {
         this.driver = driver;
     }
 
-    public void click(WebElement element, Integer scroll) {
-        scroll(element, scroll);
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(drv -> {
+    public void click(By by) {
+        try {
+            click(driver.findElement(by));
+        } catch (StaleElementReferenceException e) {
+            System.out.println("Stale element");
+            WebDriverWait myWait = new WebDriverWait(driver, Duration.ofSeconds(6));
+            myWait.ignoring(StaleElementReferenceException.class)
+                    .until(drv -> {
+                        click(by);
+                        return true;
+                    });
+        }
+    }
+
+    public void click(WebElement element) {
+        new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(50)).until(drv -> {
             try {
                 element.click();
-            } catch (ElementClickInterceptedException err) {
+            } catch (ElementClickInterceptedException e) {
                 System.out.println("Element intercepted, scrolling...");
-                scroll(75);
+                scroll(100);
                 return false;
             } catch (NoSuchElementException e) {
                 System.out.println("Trying to click on hamburger menu.");
@@ -43,19 +56,5 @@ public class MyClick {
             System.out.println("Scrolling error: " + e);
         }
     }
-
-    public void scroll(WebElement element, Integer scroll) {
-        // Create new actions element
-        Actions action = new Actions(driver);
-        try {
-            // Use action element to scroll down to object
-            action.moveToElement(element)
-                    // and finally execute the action
-                    .build().perform();
-        } catch (Throwable e) {
-            System.out.println("Couldn't scroll element: " + element.toString());
-            System.out.println("Error type: " + e);
-        }
-        scroll(scroll);
-    }
 }
+

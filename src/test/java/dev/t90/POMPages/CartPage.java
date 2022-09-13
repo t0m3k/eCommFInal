@@ -22,9 +22,6 @@ public class CartPage {
     @FindBy(id = "coupon_code")
     private WebElement inputCouponField;
 
-    @FindBy(partialLinkText = "Proceed to checkout")
-    private WebElement checkoutLink;
-
     @FindBy(css = "[name=apply_coupon]")
     private WebElement applyCouponField;
 
@@ -47,7 +44,7 @@ public class CartPage {
     }
 
     public void applyCoupon() {
-        helpers.click(applyCouponField, 200);
+        helpers.click(applyCouponField);
     }
 
     public int getSubTotal() {
@@ -74,9 +71,8 @@ public class CartPage {
 
     public boolean goCheckout() {
 
-        helpers.scroll(checkoutLink, 200);
         try {
-            checkoutLink.click();
+            helpers.click(By.partialLinkText("Proceed to checkout"));
         } catch (NoSuchElementException e) {
             return false;
         }

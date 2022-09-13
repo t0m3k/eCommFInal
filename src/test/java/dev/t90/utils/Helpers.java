@@ -1,5 +1,6 @@
 package dev.t90.utils;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -43,15 +44,11 @@ public class Helpers {
         return sharedMap.containsKey(key);
     }
 
-    public void click(WebElement element, Integer distance) {
-        click.click(element, distance);
+    public void click(WebElement element) {
+        click.click(element);
     }
 
-    public void scroll(WebElement element, Integer distance) {
-        click.scroll(element, distance);
-    }
-
-    public void scroll(Integer distance) {
-        click.scroll(distance);
+    public void click(By by) {
+        click.click(by);
     }
 }

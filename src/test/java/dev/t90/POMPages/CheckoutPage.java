@@ -65,15 +65,7 @@ public class CheckoutPage {
     }
 
     public void placeOrder() {
-        var element = driver.findElement(By.id("place_order"));
-        helpers.scroll(element, 200);
-
-        helpers.getWait()
-                .ignoring(StaleElementReferenceException.class)
-                .until(drv -> {
-                    drv.findElement(By.id("place_order")).click();
-                    return true;
-                });
+        helpers.click(By.id("place_order"));
     }
 
     public void placeOrder(String firstName, String lastName, String street, String city, String postcode, String phone, String email) {

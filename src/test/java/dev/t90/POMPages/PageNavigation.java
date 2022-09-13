@@ -36,24 +36,24 @@ public class PageNavigation {
     }
 
     public void goShop() {
-        helpers.click(shopLink,0);
+        helpers.click(shopLink);
     }
 
     public void goCart() {
-        helpers.click(cartLink, 0);
+        helpers.click(cartLink);
     }
 
     public void goAccount() {
-        helpers.click(myAccountLink, 0);
+        helpers.click(myAccountLink);
     }
 
     public void goOrders() {
         goAccount();
-        helpers.click(ordersLink, 0);
+        helpers.click(ordersLink);
     }
 
     public void logout() {
         goAccount();
-        helpers.click(logoutLink, 0);
+        helpers.click(logoutLink);
     }
 }

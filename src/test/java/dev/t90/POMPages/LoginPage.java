@@ -45,7 +45,7 @@ public class LoginPage {
         passwordField.sendKeys(password);
     }
 
-    public void submitForm() { helpers.click(loginField, 200); }
+    public void submitForm() { helpers.click(loginField); }
 
     public void login(String username, String password) {
         setUsername(username);
