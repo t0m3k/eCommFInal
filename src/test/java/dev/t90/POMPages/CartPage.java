@@ -1,19 +1,18 @@
 package dev.t90.POMPages;
 
-import dev.t90.utils.SharedDictionary;
+import dev.t90.utils.Helpers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CartPage {
-    private final SharedDictionary dict;
+    private final Helpers dict;
     private final WebDriver driver;
 
-    public CartPage(SharedDictionary dict) {
+    public CartPage(Helpers dict) {
         this.dict = dict;
         this.driver = dict.getDriver();
         PageFactory.initElements(driver, this);
@@ -75,15 +74,7 @@ public class CartPage {
 
     public boolean goCheckout() {
 
-        // Create new actions element
-        Actions action = new Actions(driver);
-
-        // Use action element to scroll down to object
-        action.moveToElement(checkoutLink)
-            // then scroll down another 100 px to clear the banner
-            .scrollByAmount(0, 100)
-            // and finally execute the action
-            .build().perform();
+        dict.scroll(checkoutLink, 200);
         try {
             checkoutLink.click();
         } catch (NoSuchElementException e) {
