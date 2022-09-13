@@ -47,7 +47,7 @@ public class Hooks {
 
     @After
     public void tearDown() throws InterruptedException {
-        Thread.sleep(6000);
+        Thread.sleep(1500);
 
         driver.quit();
     }

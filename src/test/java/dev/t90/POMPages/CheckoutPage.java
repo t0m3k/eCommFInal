@@ -4,14 +4,10 @@ import dev.t90.utils.SharedDictionary;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class CheckoutPage {
     private final SharedDictionary dict;
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public CheckoutPage(SharedDictionary dict) {
         this.dict = dict;
@@ -41,9 +37,6 @@ public class CheckoutPage {
     @FindBy(id = "billing_email")
     private WebElement emailInput;
 
-    @FindBy(id = "place_order")
-    private WebElement placeOrderButton;
-
     public void setFirstName(String name) {
         setElement(firstNameInput, name);
     }
@@ -57,23 +50,23 @@ public class CheckoutPage {
     }
 
     public void setCity(String city) {
-        setElement(streetInput, city);
+        setElement(cityInput, city);
     }
 
     public void setPostcode(String postcode) {
-        setElement(streetInput, postcode);
+        setElement(postcodeInput, postcode);
     }
 
     public void setPhone(String phone) {
-        setElement(streetInput, phone);
+        setElement(phoneInput, phone);
     }
 
     public void setEmail(String email) {
-        setElement(streetInput, email);
+        setElement(emailInput, email);
     }
 
     public void placeOrder() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        dict.getWait()
                 .ignoring(StaleElementReferenceException.class)
                 .until(drv -> {
                     drv.findElement(By.id("place_order")).click();
@@ -81,9 +74,8 @@ public class CheckoutPage {
                 });
     }
 
-
     public String getOrderId() {
-        WebDriverWait myWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        var myWait = dict.getWait();
         myWait.until((drv) -> drv.findElement(By.cssSelector("li.woocommerce-order-overview__order.order > strong")));
 
         return driver.findElement(By.cssSelector("li.woocommerce-order-overview__order.order > strong")).getText();
@@ -93,6 +85,4 @@ public class CheckoutPage {
         element.clear();
         element.sendKeys(value);
     }
-
-
 }
