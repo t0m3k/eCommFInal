@@ -2,6 +2,7 @@ package dev.t90.POMPages;
 
 import dev.t90.utils.SharedDictionary;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -65,6 +66,19 @@ public class CheckoutPage {
     }
 
     public void placeOrder() {
+        var element = driver.findElement(By.id("place_order"));
+
+        // Create new actions element
+        Actions action = new Actions(driver);
+
+        // Use action element to scroll down to object
+        action.moveToElement(element)
+                // then scroll down another 100 px to clear the banner
+                .scrollByAmount(0, 100)
+                // and finally execute the action
+                .build().perform();
+        // Now waiting for the button to be refreshed by on page javascript
+        // this is not always needed, depending on how you fill the form
         dict.getWait()
                 .ignoring(StaleElementReferenceException.class)
                 .until(drv -> {

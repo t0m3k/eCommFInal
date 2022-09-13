@@ -25,7 +25,7 @@ public class ShopSteps {
         page.goHome();
 
         LoginPage login = new LoginPage(dict);
-        login.dismissBanner();
+        //login.dismissBanner();
         boolean didWeLogin = login.loginExpectSuccess(username, password);
         MatcherAssert.assertThat("Login successful", didWeLogin);
     }

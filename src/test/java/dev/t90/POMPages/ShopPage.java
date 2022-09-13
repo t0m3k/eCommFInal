@@ -4,6 +4,7 @@ import dev.t90.utils.SharedDictionary;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
@@ -24,6 +25,9 @@ public class ShopPage {
 
     public void addToCartRnd() {
         var element = (int) Math.round(Math.random() * (addToCartElements.size() - 1));
+        Actions action = new Actions(dict.getDriver());
+        action.moveToElement(addToCartElements.get(element))
+                .scrollByAmount(0, 100).build().perform();
         addToCartElements.get(element).click();
         dict.getWait().until(drv -> drv.findElement(By.linkText("View cart")));
     }
