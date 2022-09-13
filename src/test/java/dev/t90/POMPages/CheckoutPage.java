@@ -13,7 +13,6 @@ public class CheckoutPage {
         this.dict = dict;
         this.driver = dict.getDriver();
         PageFactory.initElements(driver, this);
-
     }
 
     @FindBy(id = "billing_first_name")

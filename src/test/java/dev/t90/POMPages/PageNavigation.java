@@ -12,7 +12,6 @@ public class PageNavigation {
     public PageNavigation(SharedDictionary dict) {
         this.driver = dict.getDriver();
         PageFactory.initElements(driver, this);
-
     }
 
     @FindBy(linkText = "Shop")

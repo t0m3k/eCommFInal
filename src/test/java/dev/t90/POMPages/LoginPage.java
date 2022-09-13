@@ -8,12 +8,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
-    private final SharedDictionary dict;
-    private WebDriver driver;
 
     public LoginPage(SharedDictionary dict) {
-        this.dict = dict;
-        this.driver = dict.getDriver();
+        WebDriver driver = dict.getDriver();
         PageFactory.initElements(driver, this);
 
     }
@@ -63,5 +60,4 @@ public class LoginPage {
         }
         return true;
     }
-
 }

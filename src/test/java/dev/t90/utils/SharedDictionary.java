@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class SharedDictionary {
 
-    private final Map<String,Object> sharedMap = new HashMap<String,Object>();
+    private final Map<String,Object> sharedMap = new HashMap<>();
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -32,7 +32,6 @@ public class SharedDictionary {
     public WebDriverWait getWait(){
         return wait;
     }
-
 
     public boolean containsKey(String key){
         return sharedMap.containsKey(key);

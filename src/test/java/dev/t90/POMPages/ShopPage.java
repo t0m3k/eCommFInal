@@ -27,6 +27,4 @@ public class ShopPage {
         addToCartElements.get(element).click();
         dict.getWait().until(drv -> drv.findElement(By.linkText("View cart")));
     }
-
-
 }
