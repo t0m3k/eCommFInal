@@ -38,7 +38,7 @@ public class MyClick {
                 return false;
             } catch (NoSuchElementException e) {
                 System.out.println("Trying to click on hamburger menu.");
-                driver.findElement(By.id("site-navigation-menu-toggle")).click();
+                click(By.id("site-navigation-menu-toggle"));
                 return false;
             }
             return true;
