@@ -15,6 +15,8 @@ public class Helpers {
     private WebDriverWait wait;
     private MyClick click;
 
+    private boolean dismissBanner = false;
+
     public void addDict(String key, Object value) {
         sharedMap.put(key, value);
     }
@@ -50,5 +52,13 @@ public class Helpers {
 
     public void click(By by) {
         click.click(by);
+    }
+
+    public boolean isDismissBanner() {
+        return dismissBanner;
+    }
+
+    public void setDismissBanner(boolean dismissBanner) {
+        this.dismissBanner = dismissBanner;
     }
 }

@@ -31,8 +31,10 @@ public class ShopSteps {
     public void iAmLoggedInUsingAnd(String username, String password) {
         page.goHome();
 
-        // we don't have to dismiss the banner as we are using custom helpers.click function which scrolls down to make element visible
-        //login.dismissBanner();
+        if (helpers.isDismissBanner()) {
+            login.dismissBanner();
+        }
+
         boolean didWeLogin = login.loginExpectSuccess(username, password);
         MatcherAssert.assertThat("Login successful", didWeLogin);
     }
@@ -62,10 +64,10 @@ public class ShopSteps {
         var discount = cart.getDiscount();
         var subTotal = cart.getSubTotal();
         var delivery = cart.getDelivery();
-        var total= cart.getTotal();
+        var total = cart.getTotal();
 
         System.out.println("Asserting price values.");
-        MatcherAssert.assertThat("Discount equals 15% of subtotal", (int)Math.round(subTotal * discValue)/100, is(discount));
+        MatcherAssert.assertThat("Discount equals 15% of subtotal", (int) Math.round(subTotal * discValue) / 100, is(discount));
         MatcherAssert.assertThat("Total equals subtotal - discount + delivery", total, is(subTotal - discount + delivery));
 
         page.logout();
@@ -85,15 +87,16 @@ public class ShopSteps {
 
         CheckoutPage checkout = new CheckoutPage(helpers);
 
-        checkout.placeOrder("Harry","Potter","4 Privet Drive","Surrey","RG12 9FG","7777 777 777","hp@hogwart.co.uk");
+        checkout.placeOrder("Harry", "Potter", "4 Privet Drive", "Surrey", "RG12 9FG", "7777 777 777", "hp@hogwart.co.uk");
 
         helpers.addDict("orderId", checkout.getOrderId());
 
     }
+
     @Then("my order is visible")
     public void my_order_is_visible() {
         page.goOrders();
-        String order = (String)helpers.readDict("orderId");
+        String order = (String) helpers.readDict("orderId");
         MatcherAssert.assertThat(ordersPage.getOrderId(), is(order));
 
         page.logout();
@@ -106,6 +109,7 @@ public class ShopSteps {
         System.out.println("Removing cart items");
         cart.removeAllItems();
     }
+
     @Then("there is nothing in basket")
     public void there_is_nothing_in_basket() {
         page.goCart();

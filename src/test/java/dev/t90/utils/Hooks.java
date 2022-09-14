@@ -6,6 +6,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class Hooks {
@@ -20,6 +21,7 @@ public class Hooks {
     public void setUp() {
 
         String browser = System.getProperty("browser");
+        String banner = System.getProperty("banner");
         System.out.println("Browser set to: " + browser);
         if (browser == null) {
             browser = "";
@@ -33,7 +35,7 @@ public class Hooks {
                 break;
             case "chromeMobile":
                 driver = WebDriverManager.chromedriver().create();
-                driver.manage().window().setSize(new Dimension(400,800));
+                driver.manage().window().setSize(new Dimension(400, 800));
                 break;
             case "safari":
                 WebDriverManager wdm = WebDriverManager.safaridriver().browserInDocker();
@@ -44,6 +46,11 @@ public class Hooks {
                 driver = WebDriverManager.chromedriver().create();
                 break;
         }
+
+        if (banner != null && banner.equalsIgnoreCase("y")) {
+            System.out.println("Dismissing banner.");
+            helpers.setDismissBanner(true);
+        } else System.out.println("Banner not dismissed");
 
         helpers.setDriver(driver);
         helpers.setWait(new WebDriverWait(driver, Duration.ofSeconds(6)));

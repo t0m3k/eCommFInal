@@ -107,6 +107,8 @@
                     <systemPropertyVariables>
                         <!--suppress UnresolvedMavenProperty -->
                         <browser>${browser}</browser>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <banner>${banner}</banner>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

@@ -53,6 +53,7 @@ public class PageNavigation {
     }
 
     public void logout() {
+        System.out.println("Logging Out");
         goAccount();
         helpers.click(logoutLink);
     }
