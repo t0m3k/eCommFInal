@@ -6,7 +6,7 @@
 ### Browsers
 #### Firefox
 `mvn clean test -Dbrowser=firefox`
-### Chrome
+#### Chrome
 `mvn clean test -Dbrowser=chrome`
-### Chrome with mobile resolution
+#### Chrome with mobile resolution
 `mvn clean test -Dbrowser=chromeMobile`
