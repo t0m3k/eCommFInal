@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class CartPage {
         System.out.println("Removing " + basketItems.size() + " basket items.");
         basketItems.forEach(e -> {
             helpers.click(By.cssSelector(".remove"));
-            helpers.getWait().until(drv -> drv.findElement(By.cssSelector(".restore-item")));
+            waitUntilLoadingIsDone();
         });
     }
 
@@ -98,6 +99,15 @@ public class CartPage {
         return true;
     }
 
+    private void waitUntilLoadingIsDone() {
+        // there are two elements telling you that page is "loading", both of them have class blockOverlay
+        // we will use this class to wait until loading is done
+        helpers.getWait().until(
+                // We use expected Conditions as it has nice function to confirm invisibilty of idem
+                ExpectedConditions
+                        // and we will provide it with element using css selector.
+                        .invisibilityOfElementLocated(By.cssSelector(".blockOverlay")));
+    }
     private int getPrice(WebElement element) {
         return Math.round(Integer.parseInt(element.getText().substring(1).replace(".", "")));
     }
