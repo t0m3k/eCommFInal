@@ -37,12 +37,14 @@ public class ShopSteps {
         MatcherAssert.assertThat("Login successful", didWeLogin);
     }
 
-    @When("I add item to the basket")
-    public void i_add_item_to_the_basket() {
-        System.out.println("Going to shop.");
-        page.goShop();
-        System.out.println("Adding random item to cart.");
-        shop.addToCartRnd();
+    @When("I add {int} item\\(s) to the basket")
+    public void i_add_item_s_to_the_basket(Integer howMany) {
+        for (int i = 0; i < howMany; i++) {
+            System.out.println("Going to shop.");
+            page.goShop();
+            System.out.println("Adding random item to cart.");
+            shop.addToCartRnd();
+        }
     }
 
     @When("I use promo code {string}")
