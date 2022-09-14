@@ -34,7 +34,7 @@ public class MyClick {
                 element.click();
             } catch (ElementClickInterceptedException e) {
                 System.out.println("Element intercepted, scrolling...");
-                scroll(100);
+                scroll(50);
                 return false;
             } catch (NoSuchElementException e) {
                 System.out.println("Trying to click on hamburger menu.");
@@ -46,14 +46,16 @@ public class MyClick {
     }
 
     public void scroll(Integer scroll) {
-        // Create new actions element
         Actions action = new Actions(driver);
         try {
             //  scroll down given value
             action.scrollByAmount(0, scroll)
                     .build().perform();
-        } catch (Throwable e) {
-            System.out.println("Scrolling error: " + e);
+        } catch (InvalidArgumentException e) {
+            System.out.println("Scrolling error, trying JS.");
+            // Above will not work on firefox, while not preferred, use js on firefox to scroll
+            JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("scrollBy(0, " + scroll + ");");
         }
     }
 }
