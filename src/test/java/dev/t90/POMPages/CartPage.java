@@ -1,12 +1,12 @@
 package dev.t90.POMPages;
 
 import dev.t90.utils.Helpers;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class CartPage {
     private final Helpers helpers;
@@ -28,8 +28,6 @@ public class CartPage {
 
     @FindBy(xpath = "//*[@id=\"post-5\"]/div/div/div[2]/div/table/tbody/tr[1]/td/span/bdi")
     private WebElement subTotalElement;
-
-//    @FindBy(xpath = "//*[@id=\"post-5\"]/div/div/div[2]/div/table/tbody/tr[2]/td/span")
     private final String discountElement = "//*[@id=\"post-5\"]/div/div/div[2]/div/table/tbody/tr[2]/td/span";
 
     @FindBy(xpath = "//*[@id=\"shipping_method\"]/li/label/span/bdi")
@@ -37,6 +35,10 @@ public class CartPage {
 
     @FindBy(xpath = "//*[@id=\"post-5\"]/div/div/div[2]/div/table/tbody/tr[4]/td/strong/span/bdi")
     private WebElement totalElement;
+
+
+    @FindBys(@FindBy(css = ".cart_item"))
+    private List<WebElement> basketItems;
 
     public void setCoupon(String coupon) {
         inputCouponField.clear();
@@ -74,6 +76,23 @@ public class CartPage {
         try {
             helpers.click(By.partialLinkText("Proceed to checkout"));
         } catch (NoSuchElementException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public void removeAllItems() {
+        System.out.println("Removing " + basketItems.size() + " basket items.");
+        basketItems.forEach(e -> {
+            helpers.click(By.cssSelector(".remove"));
+            helpers.getWait().until(drv -> drv.findElement(By.cssSelector(".restore-item")));
+        });
+    }
+
+    public boolean isBasketEmpty() {
+        try {
+            helpers.getWait().until(drv -> drv.findElement(By.cssSelector(".cart-empty")));
+        } catch (TimeoutException e) {
             return false;
         }
         return true;

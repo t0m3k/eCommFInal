@@ -10,5 +10,11 @@ Feature: Test Web Shop
     Given I am logged in using "asfdasf@email.com" and "rJ2CB*#Hj66^cvyj^6"
     When I add item to the basket
     And I checkout
-    And I go to My Orders
     Then my order is visible
+
+    Scenario: I remove objects from basket
+      Given I am logged in using "asfdasf@email.com" and "rJ2CB*#Hj66^cvyj^6"
+      When I add item to the basket
+      And I add item to the basket
+      And I remove all items from basket
+      Then there is nothing in basket

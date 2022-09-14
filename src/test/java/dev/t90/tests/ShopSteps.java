@@ -13,19 +13,25 @@ import static org.hamcrest.CoreMatchers.is;
 public class ShopSteps {
     private final Helpers helpers;
     private final PageNavigation page;
+    private final LoginPage login;
+    private final CartPage cart;
+    private final ShopPage shop;
+    private final OrdersPage ordersPage;
 
     public ShopSteps(Helpers helpers) {
         this.helpers = helpers;
         page = new PageNavigation(helpers);
+        cart = new CartPage(helpers);
+        login = new LoginPage(helpers);
+        shop = new ShopPage(helpers);
+        ordersPage = new OrdersPage(helpers);
     }
 
     @Given("I am logged in using {string} and {string}")
     public void iAmLoggedInUsingAnd(String username, String password) {
         page.goHome();
 
-        LoginPage login = new LoginPage(helpers);
-
-        // we don't have to dissmiss the banner as we are using custom helpres.click function which scrolls down to make element visible
+        // we don't have to dismiss the banner as we are using custom helpers.click function which scrolls down to make element visible
         //login.dismissBanner();
         boolean didWeLogin = login.loginExpectSuccess(username, password);
         MatcherAssert.assertThat("Login successful", didWeLogin);
@@ -35,7 +41,6 @@ public class ShopSteps {
     public void i_add_item_to_the_basket() {
         System.out.println("Going to shop.");
         page.goShop();
-        ShopPage shop = new ShopPage(helpers);
         System.out.println("Adding random item to cart.");
         shop.addToCartRnd();
     }
@@ -44,7 +49,6 @@ public class ShopSteps {
     public void i_use_promo_code(String coupon) {
         System.out.println("Going to cart");
         page.goCart();
-        CartPage cart = new CartPage(helpers);
         System.out.println("Typing in and applying coupon.");
         cart.setCoupon(coupon);
         cart.applyCoupon();
@@ -52,7 +56,6 @@ public class ShopSteps {
 
     @Then("I get {double}% discount")
     public void i_get_discount(Double discValue) {
-        CartPage cart = new CartPage(helpers);
         System.out.println("Getting price values.");
         var discount = cart.getDiscount();
         var subTotal = cart.getSubTotal();
@@ -71,7 +74,6 @@ public class ShopSteps {
     public void i_go_to_checkout() {
         System.out.println("Going to cart");
         page.goCart();
-        CartPage cart = new CartPage(helpers);
         MatcherAssert.assertThat("Successfully went to checkout from cart", cart.goCheckout());
     }
 
@@ -86,17 +88,25 @@ public class ShopSteps {
         helpers.addDict("orderId", checkout.getOrderId());
 
     }
-    @When("I go to My Orders")
-    public void i_go_to_my_my_orders() {
-        page.goOrders();
-    }
     @Then("my order is visible")
     public void my_order_is_visible() {
-        OrdersPage ordersPage = new OrdersPage(helpers);
+        page.goOrders();
         String order = (String)helpers.readDict("orderId");
         MatcherAssert.assertThat(ordersPage.getOrderId(), is(order));
 
         page.logout();
 
+    }
+
+    @When("I remove all items from basket")
+    public void i_remove_all_items_from_basket() {
+        page.goCart();
+        System.out.println("Removing cart items");
+        cart.removeAllItems();
+    }
+    @Then("there is nothing in basket")
+    public void there_is_nothing_in_basket() {
+        page.goCart();
+        MatcherAssert.assertThat("Basket is empty", cart.isBasketEmpty());
     }
 }
