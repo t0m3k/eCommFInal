@@ -12,8 +12,8 @@ Feature: Test Web Shop
     And I checkout
     Then my order is visible
 
-    Scenario: I remove objects from basket
-      Given I am logged in using "asfdasf@email.com" and "rJ2CB*#Hj66^cvyj^6"
-      When I add 5 item(s) to the basket
-      And I remove all items from basket
-      Then there is nothing in basket
+  Scenario: I remove objects from basket
+    Given I am logged in using "asfdasf@email.com" and "rJ2CB*#Hj66^cvyj^6"
+    When I add 5 item(s) to the basket
+    And I remove all items from basket
+    Then there is nothing in basket
