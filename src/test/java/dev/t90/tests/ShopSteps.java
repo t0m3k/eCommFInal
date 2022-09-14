@@ -33,16 +33,19 @@ public class ShopSteps {
 
     @When("I add item to the basket")
     public void i_add_item_to_the_basket() {
+        System.out.println("Going to shop.");
         page.goShop();
         ShopPage shop = new ShopPage(helpers);
+        System.out.println("Adding random item to cart.");
         shop.addToCartRnd();
     }
 
     @When("I use promo code {string}")
     public void i_use_promo_code(String coupon) {
+        System.out.println("Going to cart");
         page.goCart();
         CartPage cart = new CartPage(helpers);
-
+        System.out.println("Typing in and applying coupon.");
         cart.setCoupon(coupon);
         cart.applyCoupon();
     }
@@ -50,12 +53,13 @@ public class ShopSteps {
     @Then("I get {double}% discount")
     public void i_get_discount(Double discValue) {
         CartPage cart = new CartPage(helpers);
-
+        System.out.println("Getting price values.");
         var discount = cart.getDiscount();
         var subTotal = cart.getSubTotal();
         var delivery = cart.getDelivery();
         var total= cart.getTotal();
 
+        System.out.println("Asserting price values.");
         MatcherAssert.assertThat("Discount equals 15% of subtotal", (int)Math.round(subTotal * discValue)/100, is(discount));
         MatcherAssert.assertThat("Total equals subtotal - discount + delivery", total, is(subTotal - discount + delivery));
 
@@ -65,6 +69,7 @@ public class ShopSteps {
 
     @When("I go to checkout")
     public void i_go_to_checkout() {
+        System.out.println("Going to cart");
         page.goCart();
         CartPage cart = new CartPage(helpers);
         MatcherAssert.assertThat("Successfully went to checkout from cart", cart.goCheckout());
